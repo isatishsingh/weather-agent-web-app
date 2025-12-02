@@ -202,7 +202,8 @@ pnpm test
 # 📁 Code Structure
 
 See structure.tst
-
+```
 weather-voice-agent/
  |- agent-starter-node/  <-- frontend
  |- agent-starter-react/ <-- backend
+ ```
