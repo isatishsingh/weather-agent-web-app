@@ -3,7 +3,7 @@
 ✅Final GitHub Repository Structure
 weather-voice-agent/
 │
-├── backend/              ← LiveKit Node.js Agent (your agent-starter-node)
+├── agent-starter-node/              ← LiveKit Node.js Agent (your agent-starter-node)
 │   ├── src/
 │   │    ├── agent.ts
 │   │    └── agent.test.ts
@@ -13,7 +13,7 @@ weather-voice-agent/
 │   ├── README.md         ← backend-only README
 │   └── ...
 │
-├── frontend/             ← React + LiveKit Client (your agent-starter-react)
+├── agent-starter-react/             ← React + LiveKit Client (your agent-starter-react)
 │   ├── app/
 │   ├── components/
 │   ├── .env.example
@@ -82,7 +82,7 @@ cd weather-voice-agent
 
 # 🖥 BACKEND SETUP (Node.js LiveKit Agent)
 ```
-cd backend
+cd agent-stater-node
 pnpm install
 ```
 
@@ -98,21 +98,28 @@ WEATHER_API_KEY=xxxx
 ```
 
 
-Download agent models:
+# Download agent models:
 
-```pnpm run download-files
+```
+pnpm run download-files
+```
 
 
-Start backend:
+# Start backend:
 
-```pnpm run dev
+```
+pnpm run dev
+```
 
 🎨 FRONTEND SETUP (React + Next.js + LiveKit Client)
-cd frontend
+```
+cd agent-starter-react
 npm install
-
+```
 
 Create .env.local:
+
+# Set up the API Key and secret
 ```
 LIVEKIT_API_KEY=xxxx
 LIVEKIT_API_SECRET=xxxx
@@ -120,12 +127,12 @@ LIVEKIT_URL=your_cloud_url
 ```
 
 
-Start UI:
-
+# Start UI:
+```
 npm run dev
+```
 
-
-Frontend runs at:
+# Frontend runs at:
 
 👉 http://localhost:3000
 
@@ -147,10 +154,10 @@ joining room voice_assistant_room_xxx
 
 This means the connection has been established correctly.
 
-🌦 Weather Integration (Backend)
+# 🌦 Weather Integration (Backend)
 
 Inside backend/src/agent.ts, add this inside tools:
-
+```
 import { z } from "zod";
 import fetch from "node-fetch";
 
@@ -177,49 +184,25 @@ tools: {
       }
    })
 }
+```
 
-🧪 Tests
+# 🧪 Tests
 
 Backend includes:
 
-/backend/src/agent.test.ts
+/agent-starter-node/src/agent.test.ts
 
 
 Run tests:
 
-```pnpm test
+```
+pnpm test
+```
 
-📁 Code Structure
+# 📁 Code Structure
 
 See structure.tst
 
-frontend/
-backend/
-
-
-This clearly documents your file layout.
-
-📝 Requirements Checklist (ALL DONE ✔)
-
-✔ Clean GitHub structure
-
-✔ Comments added in backend & frontend
-
-✔ Clear README documentation
-
-✔ How the agent works explained
-
-✔ Weather API + latitude/longitude logic
-
-✔ LiveKit interaction flow
-
-✔ Setup guide
-
-✔ Test instructions
-
-
 weather-voice-agent/
-  frontend/
-  backend/
-  README.md
->>>>>>> 2554e30 (Creating weather API agent)
+ |- agent-starter-node/  <-- frontend
+ |- agent-starter-react/ <-- backend
