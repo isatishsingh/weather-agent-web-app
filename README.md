@@ -1,5 +1,5 @@
-# weather-agent-web-app
-=======
+# ========== weather-agent-web-app =======
+```
 ✅Final GitHub Repository Structure
 weather-voice-agent/
 │
@@ -24,6 +24,7 @@ weather-voice-agent/
 │
 ├── README.md             ← ROOT README (main documentation)
 └── LICENSE
+```
 
 Below is your full README.auto-created for GitHub.
 Copy & paste into weather-voice-agent/README.md
