@@ -104,6 +104,50 @@ WEATHER_API_KEY=xxxx
 pnpm run download-files
 ```
 
+# 🌦 Weather Integration (Backend)
+
+Inside backend/src/agent.ts, add this inside tools:
+```
+import { z } from "zod";
+import fetch from "node-fetch";
+
+tools: {
+   getWeather: llm.tool({
+      description: "Get real-time weather for a city",
+      parameters: z.object({
+         city: z.string().describe("City name e.g. Bangalore")
+      }),
+      execute: async ({ city }) => {
+         const apiKey = process.env.WEATHER_API_KEY!;
+         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+         
+         const res = await fetch(url);
+         const data = await res.json();
+
+         if (data.cod !== 200) {
+            return `I could not find weather for ${city}.`;
+         }
+
+         const temp = (data.main.temp - 273.15).toFixed(1);
+
+         return `Weather in ${city} is ${temp}°C with ${data.weather[0].description}`;
+      }
+   })
+}
+```
+
+# 🧪 Tests
+
+Backend includes:
+
+/agent-starter-node/src/agent.test.ts
+
+
+Run tests:
+
+```
+pnpm test
+```
 
 # Start backend:
 
@@ -153,51 +197,6 @@ joining room voice_assistant_room_xxx
 
 
 This means the connection has been established correctly.
-
-# 🌦 Weather Integration (Backend)
-
-Inside backend/src/agent.ts, add this inside tools:
-```
-import { z } from "zod";
-import fetch from "node-fetch";
-
-tools: {
-   getWeather: llm.tool({
-      description: "Get real-time weather for a city",
-      parameters: z.object({
-         city: z.string().describe("City name e.g. Bangalore")
-      }),
-      execute: async ({ city }) => {
-         const apiKey = process.env.WEATHER_API_KEY!;
-         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-         
-         const res = await fetch(url);
-         const data = await res.json();
-
-         if (data.cod !== 200) {
-            return `I could not find weather for ${city}.`;
-         }
-
-         const temp = (data.main.temp - 273.15).toFixed(1);
-
-         return `Weather in ${city} is ${temp}°C with ${data.weather[0].description}`;
-      }
-   })
-}
-```
-
-# 🧪 Tests
-
-Backend includes:
-
-/agent-starter-node/src/agent.test.ts
-
-
-Run tests:
-
-```
-pnpm test
-```
 
 # 📁 Code Structure
 
