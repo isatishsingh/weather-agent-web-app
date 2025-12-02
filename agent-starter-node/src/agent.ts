@@ -8,28 +8,29 @@ import {
   metrics,
   voice,
 } from '@livekit/agents';
-import { llm } from "@livekit/agents";
-import { z } from "zod";
+import { llm } from '@livekit/agents';
 import * as livekit from '@livekit/agents-plugin-livekit';
 import * as silero from '@livekit/agents-plugin-silero';
 import { BackgroundVoiceCancellation } from '@livekit/noise-cancellation-node';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
+import { z } from 'zod';
 
 dotenv.config({ path: '.env.local' });
 
+// fetching the real-time weather report for an Indian city
 const getWeather = llm.tool({
-  description: "Fetch real-time weather for an Indian city",
+  description: 'Fetch real-time weather for an Indian city',
   parameters: z.object({
-    city: z.string().describe("City name in India")
+    city: z.string().describe('City name in India'),
   }),
 
   async execute({ city }) {
     const apiKey = process.env.WEATHER_KEY;
 
     try {
-      // Step 1: Convert city → lat/lon  
-      console.log("city", city);
+      // Step 1: Convert city → lat/lon
+      console.log('city', city);
       const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
       const geoRes = await fetch(geoUrl);
       const geo = await geoRes.json();
@@ -41,8 +42,7 @@ const getWeather = llm.tool({
       const { lat, lon } = geo[0];
 
       // Step 2: Fetch weather using One Call 3.0
-      const weatherUrl =
-        `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=metric&appid=${apiKey}`;
+      const weatherUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=metric&appid=${apiKey}`;
 
       const weatherRes = await fetch(weatherUrl);
       const data = await weatherRes.json();
@@ -56,11 +56,12 @@ const getWeather = llm.tool({
 
       return `The weather in ${city} is ${temp} degrees with ${desc}.`;
     } catch (err) {
-      return "There was a problem fetching the weather. Please try again.";
+      return 'There was a problem fetching the weather. Please try again.';
     }
-  }
+  },
 });
 
+// Define the assistant agent that uses the weather tool
 class Assistant extends voice.Agent {
   constructor() {
     super({
@@ -68,8 +69,8 @@ class Assistant extends voice.Agent {
 Use the weather tool when asked for weather.`,
 
       tools: {
-        getWeather
-      }
+        getWeather,
+      },
     });
   }
 }
