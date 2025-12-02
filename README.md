@@ -51,12 +51,12 @@ Silero VAD + LiveKit Turn Detection
 
 🚀 Features
 
-✔ Real-time voice conversation
-✔ Natural speech output
-✔ Automatic weather extraction
-✔ Error handling (city not found, unclear speech)
-✔ Beautiful UI with microphone, avatars, chat, and video
-✔ Clean code + comments
+✔ Real-time voice conversation.
+✔ Natural speech output.
+✔ Automatic weather extraction.
+✔ Error handling (city not found, unclear speech).
+✔ Beautiful UI with microphone, avatars, chat, and video.
+✔ Clean code + comments.
 
 ```
 # 🏗 Architecture
